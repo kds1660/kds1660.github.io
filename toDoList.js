@@ -138,7 +138,7 @@ function MainMenu() {
         }
     };
 
-    this.insertToDom = function (main) {
+    this.insertToDom = function (main,event) {
         var target = event.target.parentNode.parentNode;
         firstLi = document.createElement("li");
         firstLi.classList.add(main);
