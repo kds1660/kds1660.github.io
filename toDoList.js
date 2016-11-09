@@ -3,63 +3,94 @@ function MainMenu() {
     this.inputText = document.getElementById('myInput').value;
 
     this.CreateElementFactory = function () {
-        //чекбокс
-        this.firstChekBox = document.createElement("input");
-        this.firstChekBox.classList.add('chekBox');
-        this.firstChekBox.type = 'checkbox';
+        prepareCheckBox.call(this);
+        prepareAddItem.call(this);
+        prepareDelItem.call(this);
+        prepareEditItem.call(this);
+        prepareRecycle.call(this);
+        prepareSpan.call(this);
+        prepareUpDown.call(this);
 
-        //кнопка добавления
-        this.firstDiv = document.createElement("div");
-        this.firstDiv.classList.add('addItem');
-        this.firstDiv.onclick = function () {addSecondInput(event)};
+        function prepareCheckBox() {
+            firstChekBox = document.createElement("input");
+            firstChekBox.classList.add('chekBox');
+            firstChekBox.type = 'checkbox';
+            this.firstChekBox = firstChekBox;
+        }
 
-        //кнопка удаления дочернего
-        this.secondDiv = document.createElement("div");
-        this.secondDiv.classList.add('removeItem');
-        this.secondDiv.onclick = function () {
-            var targElem = event.target.parentNode.lastChild.lastChild;
-            var delElem = event.target.parentNode.lastChild;
+        function prepareAddItem() {
+            firstDiv = document.createElement("div");
+            firstDiv.classList.add('addItem');
+            firstDiv.onclick = function () {
+                addSecondInput(event)
+            };
+            this.firstDiv = firstDiv;
+        }
 
-            if ((targElem) && (targElem.classList.contains('second')
-                || targElem.classList.contains('third'))) {
-                delElem.removeChild(delElem.lastChild);
-            }
-        };
+        function prepareDelItem() {
+            secondDiv = document.createElement("div");
+            secondDiv.classList.add('removeItem');
+            secondDiv.onclick = function () {
+                var targElem = event.target.parentNode.lastChild.lastChild;
+                var delElem = event.target.parentNode.lastChild;
 
-        //кнопка редактирования
-        this.thirdDiv = document.createElement("div");
-        this.thirdDiv.classList.add('editItem');
+                if ((targElem) && (targElem.classList.contains('second')
+                    || targElem.classList.contains('third'))) {
+                    delElem.removeChild(delElem.lastChild);
+                }
+            };
+            this.secondDiv = secondDiv;
+        }
 
-        //кнопка удаления текущего
-        this.closediv = document.createElement("div");
-        this.closediv.classList.add('close');
 
-        this.closediv.onclick = function () {
-            var div = event.target.parentElement;
-            div.style.opacity = '1';
-            var id = setInterval(function () {frameOpacity(id, div, 0)}, 40);
-        };
+        function prepareEditItem() {
+            thirdDiv = document.createElement("div");
+            thirdDiv.classList.add('editItem');
+            this.thirdDiv = thirdDiv;
+        }
 
-        //текст элемента
-        this.firstSpan = document.createElement("span");
-        this.firstSpan.innerHTML = thisForMain.inputText;
+        function prepareRecycle() {
+            closediv = document.createElement("div");
+            closediv.classList.add('close');
+            closediv.onclick = function () {
+                var div = event.target.parentElement;
+                div.style.opacity = '1';
+                var id = setInterval(function () {
+                    frameOpacity(id, div, 0)
+                }, 40);
+            };
+            this.closediv = closediv;
+        }
 
-        //кнопки вверх/вниз
-        //вверх
-        this.fourthDivTop = document.createElement("a");
-        this.fourthDivTop.classList.add('scrollTop');
-        this.fourthDivTop.onclick = function () {
-            thisForMain.upDownElement(event)
-        };
-        //вниз
-        this.fourthDivBottom = document.createElement("a");
-        this.fourthDivBottom.classList.add('scrollBottom');
-        this.fourthDivBottom.onclick = function () {
-            thisForMain.upDownElement(event)
-        };
-        //контейнер вверх/вниз
-        this.fourthDiv = document.createElement("div");
-        this.fourthDiv.classList.add('topBottom');
+        function prepareSpan() {
+            firstSpan = document.createElement("span");
+            firstSpan.innerHTML = thisForMain.inputText;
+            this.firstSpan = firstSpan;
+        }
+
+        function prepareUpDown() {
+            //вверх
+            fourthDivTop = document.createElement("a");
+            fourthDivTop.classList.add('scrollTop');
+            fourthDivTop.onclick = function () {
+                thisForMain.upDownElement(event)
+            };
+
+            //вниз
+            fourthDivBottom = document.createElement("a");
+            fourthDivBottom.classList.add('scrollBottom');
+            fourthDivBottom.onclick = function () {
+                thisForMain.upDownElement(event)
+            };
+
+            //контейнер вверх/вниз
+            fourthDiv = document.createElement("div");
+            fourthDiv.classList.add('topBottom');
+
+            this.fourthDivTop = fourthDivTop;
+            this.fourthDivBottom = fourthDivBottom;
+            this.fourthDiv = fourthDiv;
+        }
 
         //вложенный UL
         this.firstUL = document.createElement("ul");
@@ -85,6 +116,12 @@ function MainMenu() {
                 firstDiv.appendChild(buttonForSecondElement());
                 event.appendChild(firstDiv);
                 secondFocus.focus();
+                secondFocus.onkeyup = function (event) {
+
+                    if (event.keyCode === 13) {
+                        document.getElementById('addSecondButton').onclick(event)
+                    }
+                }
             }
 
             function TextForSecondElement(max) {
@@ -99,6 +136,7 @@ function MainMenu() {
                     }
                 };
                 return firstInput;
+
             }
 
             function buttonForSecondElement() {
@@ -106,6 +144,7 @@ function MainMenu() {
                 secondInput = document.createElement("input");
                 secondInput.type = 'button';
                 secondInput.value = 'add';
+                secondInput.id = 'addSecondButton'
                 secondInput.onclick = function secondInputCreateElem(event) {
                     var inputText = document.getElementById('secondInput').value;
 
@@ -126,7 +165,9 @@ function MainMenu() {
 
                         newElement.getElementsByTagName('span')[0].innerHTML = inputText;
 
-                        var id = setInterval(function () {frameOpacity(id, newElement, 1)}, 40);
+                        var id = setInterval(function () {
+                            frameOpacity(id, newElement, 1)
+                        }, 40);
 
                         if (document.getElementById('secondInput')) {
                             event.target.parentNode.parentNode.removeChild(document.getElementById('addSecondItem'));
@@ -162,7 +203,7 @@ function MainMenu() {
         return target.appendChild(firstLi);
     };
 
-    this.upDownElement=function (event) {
+    this.upDownElement = function (event) {
         var lockElem = event.target.parentNode.parentNode;
 
         if (lockElem.previousSibling && event.target.classList.contains('scrollTop')) {
@@ -297,11 +338,18 @@ function MainMenu() {
         var newElement = new this.CreateElementFactory();
         newElement = this.insertToDom.call(newElement, 'first');
 
-        var id = setInterval(function () {frameOpacity(id, newElement, 1)}, 40);
+        var id = setInterval(function () {
+            frameOpacity(id, newElement, 1)
+        }, 40);
         addEvent(newElement);
-        document.getElementById('myInput').value='';
+        document.getElementById('myInput').value = '';
     }
 
+}
+function mainEnter(event) {
+    if (event.keyCode === 13) {
+        new MainMenu()
+    }
 }
 
 
