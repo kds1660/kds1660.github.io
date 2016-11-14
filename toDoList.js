@@ -1,4 +1,4 @@
-function MainMenu() {
+function MainMenu(event) {
     var thisForMain = this;
     this.inputText = document.getElementById('myInput').value;
 
@@ -21,8 +21,8 @@ function MainMenu() {
         function prepareAddItem() {
             firstDiv = document.createElement("div");
             firstDiv.classList.add('addItem');
-            firstDiv.onclick = function () {
-                addSecondInput(event)
+            firstDiv.onclick = function (event) {
+                addSecondInput(event);
             };
             this.firstDiv = firstDiv;
         }
@@ -30,7 +30,7 @@ function MainMenu() {
         function prepareDelItem() {
             secondDiv = document.createElement("div");
             secondDiv.classList.add('removeItem');
-            secondDiv.onclick = function () {
+            secondDiv.onclick = function (event) {
                 var targElem = event.target.parentNode.lastChild.lastChild;
                 var delElem = event.target.parentNode.lastChild;
 
@@ -52,7 +52,7 @@ function MainMenu() {
         function prepareRecycle() {
             closediv = document.createElement("div");
             closediv.classList.add('close');
-            closediv.onclick = function () {
+            closediv.onclick = function (event) {
                 var div = event.target.parentElement;
                 div.style.opacity = '1';
                 var id = setInterval(function () {
@@ -72,14 +72,14 @@ function MainMenu() {
             //вверх
             fourthDivTop = document.createElement("a");
             fourthDivTop.classList.add('scrollTop');
-            fourthDivTop.onclick = function () {
+            fourthDivTop.onclick = function (event) {
                 thisForMain.upDownElement(event)
             };
 
             //вниз
             fourthDivBottom = document.createElement("a");
             fourthDivBottom.classList.add('scrollBottom');
-            fourthDivBottom.onclick = function () {
+            fourthDivBottom.onclick = function (event) {
                 thisForMain.upDownElement(event)
             };
 
@@ -97,49 +97,46 @@ function MainMenu() {
 
         function addSecondInput(event) {
             var secondInput = document.getElementById('addSecondItem');
-
             if (!secondInput) {
                 event = event.target.parentNode;
                 var max = 17;
 
                 if (event.classList.contains('second')) max = 9;
-                createSecondElement();
+                createSecondElement(event);
             } else {
                 secondInput.parentNode.removeChild(secondInput);
             }
 
-            function createSecondElement() {
+            function createSecondElement(event) {
                 //создать вложенный элемент ввода
                 var firstDiv = document.createElement("div");
                 firstDiv.id = 'addSecondItem';
-                var secondFocus = firstDiv.appendChild(TextForSecondElement(max));
-                firstDiv.appendChild(buttonForSecondElement());
+                var secondFocus = firstDiv.appendChild(TextForSecondElement(max,event));
+                firstDiv.appendChild(buttonForSecondElement(event));
                 event.appendChild(firstDiv);
                 secondFocus.focus();
                 secondFocus.onkeyup = function (event) {
 
+                    if (event.target.value.length > max) {
+                        event.target.value = event.target.value.substring(0, max);
+                    }
                     if (event.keyCode === 13) {
                         document.getElementById('addSecondButton').onclick(event)
                     }
                 }
             }
 
-            function TextForSecondElement(max) {
+            function TextForSecondElement(max,event) {
                 //поле ввода вложенного
+
                 var firstInput = document.createElement("input");
                 firstInput.type = 'text';
                 firstInput.id = 'secondInput';
-                firstInput.onkeyup = function maxInputSize(event) {
-
-                    if (event.target.value.length > max) {
-                        event.target.value = event.target.value.substring(0, max);
-                    }
-                };
                 return firstInput;
 
             }
 
-            function buttonForSecondElement() {
+            function buttonForSecondElement(event) {
                 //кнопка добавить вложенного
                 secondInput = document.createElement("input");
                 secondInput.type = 'button';
@@ -153,13 +150,13 @@ function MainMenu() {
                     } else {
 
                         if (event.target.parentNode.parentNode.classList.contains('first')) {
-                            var newElement = new thisForMain.CreateElementFactory();
-                            newElement = thisForMain.insertToDom.call(newElement, 'second');
+                            var newElement = new thisForMain.CreateElementFactory(event);
+                            newElement = thisForMain.insertToDom.call(newElement, 'second',event);
                             addEvent(newElement);
                         }
                         else if (event.target.parentNode.parentNode.classList.contains('second')) {
-                            var newElement = new thisForMain.CreateElementFactory();
-                            newElement = thisForMain.insertToDom.call(newElement, 'third');
+                            var newElement = new thisForMain.CreateElementFactory(event);
+                            newElement = thisForMain.insertToDom.call(newElement, 'third',event);
                             addEvent(newElement);
                         }
 
@@ -179,7 +176,7 @@ function MainMenu() {
         }
     };
 
-    this.insertToDom = function (main) {
+    this.insertToDom = function (main,event) {
         var target = event.target.parentNode.parentNode;
         firstLi = document.createElement("li");
         firstLi.classList.add(main);
@@ -336,7 +333,7 @@ function MainMenu() {
         alert('Не введено содержимое')
     } else {
         var newElement = new this.CreateElementFactory();
-        newElement = this.insertToDom.call(newElement, 'first');
+        newElement = this.insertToDom.call(newElement, 'first',event);
 
         var id = setInterval(function () {
             frameOpacity(id, newElement, 1)
@@ -348,7 +345,7 @@ function MainMenu() {
 }
 function mainEnter(event) {
     if (event.keyCode === 13) {
-        new MainMenu()
+        new MainMenu(event)
     }
 }
 
