@@ -1,0 +1,65 @@
+#myWrapper {
+    margin: 0 auto;
+    width: 900px;
+}
+
+.circleFrame {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    opacity: 1;
+    text-align: center;
+    border-radius: 5px;
+    float: right;
+}
+
+.crossFrame {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    opacity: 1;
+    border-radius: 5px;
+    float: right;
+}
+
+.circle {
+    background-image: url("img/circle.png");
+    background-size: 100%;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    left: 30px;
+    top: 30px;
+    opacity: 1;
+    border-radius: 5px;
+}
+.cross {
+    background-image: url("img/cross.png");
+    background-size: 100%;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    opacity: 1;
+    border-radius: 5px;
+    left: 30px;
+    top: 30px;
+}
+.box {
+    width: 60px;
+    height: 60px;
+    border: 4px solid #BBCC25;
+    padding: 10px;
+}
+
+.clone {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto
+}
+
+.active {
+    border: 3px solid red;
+}

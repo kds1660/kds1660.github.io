@@ -274,8 +274,7 @@ function MainMenu(event) {
 
         //редактирование имени по щелчку на нем
         thisSpan.addEventListener('click', function (event) {
-            (event.target.isContentEditable) ? event.target.contentEditable = false : event.target.contentEditable = true;
-            event.target.focus();
+            prepareRecycle
         });
 
         node.addEventListener('keypress', function (event) {
