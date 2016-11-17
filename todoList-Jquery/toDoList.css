@@ -35,8 +35,9 @@ input {
     width: 30%;
 }
 #myFilter {
-    position: relative;
-    top:20px;
+    position: absolute;
+    left: 40px;
+    top: 78px;
 }
 
 ul {
