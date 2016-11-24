@@ -1,0 +1,21 @@
+
+.animal {
+    width: 10px;
+    height: 10px;
+    background-image: url(img/animal.png);
+    background-position: center center;
+}
+
+.plant {
+    width: 10px;
+    height: 10px;
+    background-image: url(img/plant.png);
+    background-position: center center;
+}
+
+.stone {
+    width: 10px;
+    height: 10px;
+    background-image: url(img/stone.png);
+    background-position: center center;
+}
