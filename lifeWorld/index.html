@@ -2,38 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
+    <script>
+        mocha.setup('bdd');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
+    <script>
+        var assert = chai.assert;
+    </script>
     <title>MyGame</title>
-        <link rel="stylesheet" href="world.css">
+    <link rel="stylesheet" href="world.css">
     <script src="creatures.js" defer></script>
     <script src="world.js" defer></script>
     <script src="main.js" defer></script>
-
-
-
 </head>
+
 <body>
+
 <div id="generate">
-    <input id='widhtHeigth' type="number" min="10" max="30" step="1" value="25">
+    <span>L</span>
+    <input id='widhtHeigth' type="number" min="10" max="3000" step="1" value="25">
     <div class="stone"></div>
-    <input id='stoneNumber' type="number" min="1" max="30" step="1" value="20">
+    <input id='stoneNumber' type="number" min="1" max="3000" step="1" value="20">
     <div class="plant"></div>
-    <input id='plantsNumber' type="number" min="1" max="30" step="1" value="10">
+    <input id='plantsNumber' type="number" min="1" max="3000" step="1" value="10">
     <div class="animal"></div>
-    <input id='animalNumber' type="number" min="1" max="30" step="1" value="10">
+    <input id='animalNumber' type="number" min="1" max="3000" step="1" value="10">
     <input type="button" onclick="generateWorld()" value="Generate">
     <div id='checker'></div>
 </div>
 
-<div id="play"><input type="button" onclick="startPause(1)" value="start">
-    <input type="button" onclick="startPause(0)" value="pause">
+<div id="play">
+    <input id="buttonStart"type="button" onclick="startPause(1,event)" value="start">
+    <input id="buttonPause" type="button" onclick="startPause(0,event)" value="pause">
     <input type="button" onclick="wold.turn()" value="Next">
 </div>
 
 <div id="myWrapper">
-
 </div>
-
-
+<script src="test.js"></script>
+<div id="mocha"></div>
+<script>
+    mocha.run();
+</script>
 
 </body>
 </html>

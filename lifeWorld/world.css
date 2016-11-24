@@ -26,7 +26,7 @@ input {
 }
 
 input[type="number"] {
-    width: 30px;
+    width: 50px;
 }
 
 #generate *  {
@@ -34,5 +34,5 @@ input[type="number"] {
 }
 #checker {
     position: absolute;
-    left: 300px;
+    left: 400px;
 }
