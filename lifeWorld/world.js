@@ -80,6 +80,8 @@ function world() {
     this.turnObjects = [];
     this.turn = function () {
         this.turnObjects = [];
+        iter++;
+        document.getElementById("checker").innerHTML=iter;
 
         for (var i = 0; i < this.worldArray.length; i++) {
 
@@ -107,6 +109,7 @@ function world() {
                     worldArray[this.turnObjects[i].direction.x][this.turnObjects[i].direction.y] = new Cow;
                     newDiv.classList.add('animal');
                 }
+                document.getElementById('myTab').rows[this.turnObjects[i].direction.x].cells[this.turnObjects[i].direction.y].innerHTML = '';
                 document.getElementById('myTab').rows[this.turnObjects[i].direction.x].cells[this.turnObjects[i].direction.y].appendChild(newDiv);
             }
 

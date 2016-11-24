@@ -19,3 +19,20 @@
     background-image: url(img/stone.png);
     background-position: center center;
 }
+
+input {
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+input[type="number"] {
+    width: 30px;
+}
+
+#generate *  {
+    display:inline-block;
+}
+#checker {
+    position: absolute;
+    left: 300px;
+}

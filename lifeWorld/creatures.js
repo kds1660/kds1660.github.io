@@ -33,7 +33,7 @@ Animal.prototype.find = function () {
 }
 
 Animal.prototype.actionSelect = function () {
-
+this.action='stop';
     if (this.type === 'plant') {
 
         if (this.energy < 500) this.energy += 50;
@@ -115,8 +115,8 @@ Cow.prototype = Object.create(Animal.prototype);
 function Cow() {
     Animal.call(this);
     this.type = 'vegetarians';
-    this.action='move';}
-
+    this.action='move';
+}
 
 Plant.prototype = Object.create(Animal.prototype);
 

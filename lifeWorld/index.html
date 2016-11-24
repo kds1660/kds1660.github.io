@@ -12,7 +12,23 @@
 
 </head>
 <body>
-<input type="button" onclick="wold.turn()" value="turn">
+<div id="generate">
+    <input id='widhtHeigth' type="number" min="10" max="30" step="1" value="25">
+    <div class="stone"></div>
+    <input id='stoneNumber' type="number" min="1" max="30" step="1" value="20">
+    <div class="plant"></div>
+    <input id='plantsNumber' type="number" min="1" max="30" step="1" value="10">
+    <div class="animal"></div>
+    <input id='animalNumber' type="number" min="1" max="30" step="1" value="10">
+    <input type="button" onclick="generateWorld()" value="Generate">
+    <div id='checker'></div>
+</div>
+
+<div id="play"><input type="button" onclick="startPause(1)" value="start">
+    <input type="button" onclick="startPause(0)" value="pause">
+    <input type="button" onclick="wold.turn()" value="Next">
+</div>
+
 <div id="myWrapper">
 
 </div>
