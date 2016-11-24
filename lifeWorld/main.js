@@ -1,12 +1,34 @@
-var tabNumber = 25;
-var stoneNumber = 20;
-var plantsNumber = 10;
-var animalNumber = 10;
-initArray(tabNumber);
+var timer;
+var tabNumber=25;
+var wold;
+var iter=0;
 
-addObjects(tabNumber, stoneNumber, '#');
-addObjects(tabNumber, plantsNumber, '*');
-addObjects(tabNumber, animalNumber, 'o');
+document.getElementById("play").style.display='none';
 
-var wold = new world();
-new visualWorld(wold.worldArray);
+function startPause(chk) {
+    if (chk) {
+        timer=setInterval(wold.turn,300);
+    }else if (timer) {clearInterval(timer)}
+}
+
+function generateWorld() {
+    iter=0;
+    document.getElementById("play").style.display='';
+    document.getElementById("checker").innerHTML='';
+    document.getElementById("myWrapper").innerHTML='';
+    tabNumber = +document.getElementById("widhtHeigth").value;
+    console.log(tabNumber);
+    var stoneNumber = document.getElementById("stoneNumber").value||20;
+    var plantsNumber = document.getElementById("plantsNumber").value||10;
+    var animalNumber = document.getElementById("animalNumber").value||10;
+
+    initArray(tabNumber);
+
+    addObjects(tabNumber, stoneNumber, '#');
+    addObjects(tabNumber, plantsNumber, '*');
+    addObjects(tabNumber, animalNumber, 'o');
+    wold = new world();
+    new visualWorld(wold.worldArray);
+}
+
+
